@@ -10,6 +10,7 @@
         <module>user-service</module>
         <module>jwt-commons</module>
         <module>authentication-service</module>
+        <module>gateway</module>
     </modules>
 
     <parent>

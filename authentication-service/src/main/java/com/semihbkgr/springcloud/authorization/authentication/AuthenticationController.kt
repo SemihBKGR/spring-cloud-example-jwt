@@ -18,22 +18,12 @@ class AuthenticationController(
     val userTokenComponent: UserJwtComponent
 ) {
 
-    @PostMapping("/jwt")
+    @PostMapping
     fun jwtToken(@RequestBody user: User, res: ServerResponse): Mono<User> {
         return userRepository.findByUsername(user.username)
             .filter { userFromDB ->
                 passwordEncoder.matches(user.password, userFromDB.password)
             }
-            .doOnNext { u ->
-                val jwt = userTokenComponent.generate(u)
-                res.headers().add("Authorization", jwt)
-            }
-            .switchIfEmpty(Mono.error(ResponseStatusException(HttpStatus.UNAUTHORIZED, "Incorrect credentials")))
-    }
-
-    @PostMapping
-    fun signup(@RequestBody user: User, res: ServerResponse): Mono<User> {
-        return userRepository.save(user)
             .doOnNext { u ->
                 val jwt = userTokenComponent.generate(u)
                 res.headers().add("Authorization", jwt)
