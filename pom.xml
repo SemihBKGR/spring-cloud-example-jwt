@@ -11,6 +11,7 @@
         <module>jwt-commons</module>
         <module>authentication-service</module>
         <module>gateway</module>
+        <module>product-service</module>
     </modules>
 
     <parent>
