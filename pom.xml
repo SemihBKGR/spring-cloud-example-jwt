@@ -8,6 +8,8 @@
     <modules>
         <module>service-discovery</module>
         <module>user-service</module>
+        <module>jwt-commons</module>
+        <module>authentication-service</module>
     </modules>
 
     <parent>
