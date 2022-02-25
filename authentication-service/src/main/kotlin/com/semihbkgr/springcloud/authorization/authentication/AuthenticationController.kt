@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.server.ResponseStatusException
+import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
 
 @RestController
@@ -19,14 +19,14 @@ class AuthenticationController(
 ) {
 
     @PostMapping
-    fun jwtToken(@RequestBody user: User, res: ServerResponse): Mono<User> {
+    fun jwtToken(@RequestBody user: User, exchange: ServerWebExchange): Mono<User> {
         return userRepository.findByUsername(user.username)
             .filter { userFromDB ->
                 passwordEncoder.matches(user.password, userFromDB.password)
             }
             .doOnNext { u ->
                 val jwt = userTokenComponent.generate(u)
-                res.headers().add("Authorization", jwt)
+                exchange.response.headers.add("Authorization", "Bearer " + jwt)
             }
             .switchIfEmpty(Mono.error(ResponseStatusException(HttpStatus.UNAUTHORIZED, "Incorrect credentials")))
     }
