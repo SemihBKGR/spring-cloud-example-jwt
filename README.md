@@ -1,1 +1,2 @@
-# spring-cloud-authorization
+# Spring Cloud Example JWT
+
