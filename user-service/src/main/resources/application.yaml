@@ -1,6 +1,6 @@
 spring:
   application:
-    name: user-service
+    name: user
   data:
     mongodb:
       database: userdb

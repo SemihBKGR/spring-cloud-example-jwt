@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class RouteConfig {
+class RouterConfig {
 
     @Bean
     fun routeLocator(builder: RouteLocatorBuilder): RouteLocator {
@@ -14,8 +14,14 @@ class RouteConfig {
             .route { p ->
                 p.path("/authentication/**")
                     .uri("lb://authentication")
+            }
+            .route { p ->
                 p.path("/user/**")
                     .uri("lb://user")
+            }
+            .route { p ->
+                p.path("/product/**")
+                    .uri("lb://product")
             }.build()
     }
 

@@ -19,11 +19,8 @@ class AuthenticationController(
 ) {
 
     @PostMapping
-    fun jwtToken(
-        @RequestBody user: com.semihbkgr.example.springcloud.jwt.authentication.User,
-        exchange: ServerWebExchange
-    ): Mono<com.semihbkgr.example.springcloud.jwt.authentication.User> {
-        return userRepository.findByUsername(user.username)
+    fun jwtToken(@RequestBody user: User, exchange: ServerWebExchange): Mono<User> {
+        return userRepository.findByUsername(user.username!!)
             .filter { userFromDB ->
                 passwordEncoder.matches(user.password, userFromDB.password)
             }

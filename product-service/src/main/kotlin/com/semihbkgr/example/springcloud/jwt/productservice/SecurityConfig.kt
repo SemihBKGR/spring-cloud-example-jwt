@@ -22,14 +22,14 @@ class SecurityConfig {
             .and()
             .csrf()
             .disable()
-            .addFilterBefore(jwtFilter, SecurityWebFiltersOrder.AUTHORIZATION)
+            .addFilterBefore(jwtFilter, SecurityWebFiltersOrder.AUTHENTICATION)
             .build()
     }
 
     @Bean
     fun userDetailsService(): ReactiveUserDetailsService {
         return ReactiveUserDetailsService {
-            Mono.error(ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR))
+            Mono.error(ResponseStatusException(HttpStatus.UNAUTHORIZED))
         }
     }
 

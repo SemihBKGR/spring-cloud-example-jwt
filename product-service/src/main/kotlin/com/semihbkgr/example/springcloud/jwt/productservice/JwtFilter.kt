@@ -31,16 +31,13 @@ class JwtFilter(private val jwtComponent: JwtComponent, private val objectMapper
                         }.collect(Collectors.toList())
                     val authentication = UsernamePasswordAuthenticationToken(sub, cliams, authoritySet)
                     ReactiveSecurityContextHolder.withAuthentication(authentication)
-                    return chain.filter(exchange)
                 } catch (e: Exception) {
                     e.printStackTrace()
                     return Mono.error(ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid token"))
                 }
             }
-            return Mono.error(ResponseStatusException(HttpStatus.UNAUTHORIZED, "Incorrect token format"))
         }
-        return Mono.error(ResponseStatusException(HttpStatus.UNAUTHORIZED, "Authentication token is not available"))
+        return chain.filter(exchange)
     }
-
 
 }

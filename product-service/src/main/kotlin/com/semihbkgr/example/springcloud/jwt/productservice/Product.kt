@@ -6,9 +6,9 @@ import org.springframework.data.mongodb.core.mapping.Document
 @Document
 data class Product(
     @Id
-    val id: String,
+    var id: String?,
     var owner: String?,
-    val name: String,
-    val price: Float,
+    val name: String?,
+    val price: Float?,
     val description: String?
 )
