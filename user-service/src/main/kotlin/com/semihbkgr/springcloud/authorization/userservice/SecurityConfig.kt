@@ -1,4 +1,4 @@
-package com.semihbkgr.springcloud.authorization.productservice
+package com.semihbkgr.springcloud.authorization.userservice
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.context.annotation.Bean
@@ -20,6 +20,8 @@ class SecurityConfig {
     @Bean
     fun securityFilterChain(security: ServerHttpSecurity, jwtFilter: JwtFilter): SecurityWebFilterChain? {
         return security.authorizeExchange()
+            .pathMatchers(HttpMethod.POST, "/user")
+            .permitAll()
             .anyExchange()
             .permitAll()
             .and()
@@ -39,6 +41,11 @@ class SecurityConfig {
     @Bean
     fun jwtFilter(jwtComponent: JwtComponent, objectMapper: ObjectMapper): JwtFilter {
         return JwtFilter(jwtComponent, objectMapper)
+    }
+
+    @Bean
+    fun passwordEncoder(): PasswordEncoder {
+        return BCryptPasswordEncoder()
     }
 
 }

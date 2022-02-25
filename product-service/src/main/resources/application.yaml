@@ -17,3 +17,7 @@ eureka:
     prefer-ip-address: true
 server:
   port: 9020
+  error:
+    include-message: always
+jwt:
+  secret: s3cr3t

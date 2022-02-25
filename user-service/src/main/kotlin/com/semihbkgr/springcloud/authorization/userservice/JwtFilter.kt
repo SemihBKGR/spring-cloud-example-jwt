@@ -1,4 +1,4 @@
-package com.semihbkgr.springcloud.authorization.productservice
+package com.semihbkgr.springcloud.authorization.userservice
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.http.HttpStatus
